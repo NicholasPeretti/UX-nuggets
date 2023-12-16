@@ -1,0 +1,74 @@
+<head>
+  <style>
+    :root {
+      --transition-duration: 1.25s;
+      --color-a: #d50044;
+      --color-b: #7700ff;
+    }
+
+    button {
+      width: 300px;
+      height: 50px;
+      border: 0;
+      border-radius: 5px;
+      cursor: pointer;
+      background-image: radial-gradient(var(--color-a), var(--color-b));
+      background-size: 200% 800%;
+      background-position: left center;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+    button > span.content {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: "Verdana";
+    }
+
+    button > span.backdrop {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+
+      background-image: radial-gradient(var(--color-a), var(--color-b));
+      background-size: 200% 800%;
+      background-position: center center;
+      opacity: 1;
+      transition: opacity var(--transition-duration);
+      z-index: 1;
+    }
+
+    button:hover > span.backdrop {
+      opacity: 0;
+      transition: opacity var(--transition-duration);
+    }
+  </style>
+</head>
+<body>
+  <button id="btn">
+    <span class="backdrop"></span>
+    <span class="content">Click me</span>
+  </button>
+  <script>
+    const button = document.getElementById("btn");
+
+    button.addEventListener("mousemove", (event) => {
+      const xCenter = button.offsetWidth / 2;
+      const yCenter = button.offsetHeight / 2;
+      const updateX = -(xCenter * 2) + event.offsetX;
+      const updateY = -(yCenter * 8) + event.offsetY;
+
+      button.style.backgroundPositionX = updateX + "px";
+      button.style.backgroundPositionY = updateY + "px";
+    });
+  </script>
+</body>
