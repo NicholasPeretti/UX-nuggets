@@ -1,0 +1,41 @@
+<head>
+  <style>
+    :root{
+      --panel-size: 300px;
+      --backdrop-filter: saturate(1.8) blur(20px);
+      --inset-shadow: box-shadow: inset 0 0 0 200px rgba(255, 255, 255, 0.08);
+    }
+    body {
+      background-image: url("./rocks.jpg");
+      background-size: 100%;
+      background-repeat: no-repeat;
+      display: flex;
+      gap: 15px;
+    }
+    .panel-light {
+      width:var(--panel-size);
+      height: calc(var(--panel-size) / 2);
+      background: rgba(255, 255, 255, 0.65);
+      font-family: "Verdana";
+      border-radius: 5px;
+      padding: 15px 30px;
+      backdrop-filter:var(--backdrop-filter);
+      box-shadow:var(--inset-shadow);
+    }
+    .panel-dark {
+      width:var(--panel-size);
+      height: calc(var(--panel-size) / 2);
+      background: rgba(23, 23, 23, 0.8);
+      color: white;
+      font-family: "Verdana";
+      border-radius: 5px;
+      padding: 15px 30px;
+      backdrop-filter:var(--backdrop-filter);
+      box-shadow:var(--inset-shadow);
+    }
+  </style>
+</head>
+<body>
+  <div class="panel-light">Panel</div>
+  <div class="panel-dark">Panel</div>
+</body>
