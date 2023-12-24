@@ -1,0 +1,95 @@
+<head>
+  <style>
+    body {
+      margin: 0;
+    }
+    #square {
+      width: 0;
+      height: 0;
+      border: 50px solid black;
+      box-sizing: border-box;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* 
+      Double the height to allow
+      animations to run on scroll
+    */
+    .stage-container {
+      height: 200vh;
+    }
+
+    /* 
+      Stage inside its wrapper where
+      elements will be animated
+    */
+    .stage {
+      overflow: hidden;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      width: 100vw;
+
+      /* Custom for demo */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .framed {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      width: 100vw;
+    }
+  </style>
+</head>
+<body>
+  <div class="framed">
+    <h1>There's a message for you</h1>
+  </div>
+  <div class="stage-container">
+    <div class="stage">
+      <div id="square">You've been...</div>
+    </div>
+  </div>
+  <div class="framed">
+    <h1>FRAMED</h1>
+  </div>
+  <script>
+    const square = document.getElementById("square");
+
+    document.addEventListener("scroll", (event) => {
+      const wrapper = document.querySelector(".stage-container");
+      const stage = document.querySelector(".stage");
+      
+      //  Calculate scroll progress
+      const wrapperStartPosition = wrapper.offsetTop;
+      const availableScroll =
+        wrapper.offsetHeight - window.innerHeight;
+      const scrolledAmount =
+        window.scrollY <= wrapperStartPosition
+          ? 0
+          : window.scrollY - wrapperStartPosition;
+      const scrolledPercentage = scrolledAmount / availableScroll;
+
+      //  Handle frame animation
+      const minSqH = 0.5 * window.innerHeight;
+      const minSqW = 0.5 * window.innerWidth;
+      const growthMarginH = window.innerHeight - minSqH;
+      const growthMarginW = window.innerWidth - minSqW;
+
+      const updatedSqW =
+        minSqW + growthMarginW - scrolledPercentage * growthMarginW;
+      const updatedSqH =
+        minSqH + growthMarginH - scrolledPercentage * growthMarginH;
+
+      square.style.width = `${updatedSqW > minSqW ? updatedSqW : minSqW}px`;
+      square.style.height = `${updatedSqH > minSqH ? updatedSqH : minSqH}px`;
+    });
+  </script>
+</body>
